@@ -15,7 +15,7 @@ public class LoginDemoStep {
 	
 	@Given("I launch browser and open base url {string}")
 	public void i_launch_browser_and_open_base_url(String baseUrl) {
-		Hooks.driver.get(baseUrl);
+	 Hooks.driver.get(baseUrl);
 	  this.driver=Hooks.driver;
 	//  driver.get(baseUrl);
 	  
