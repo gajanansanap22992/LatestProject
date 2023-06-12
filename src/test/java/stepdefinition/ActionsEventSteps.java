@@ -10,10 +10,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class ActionsEventSteps {
-	public  WebDriver driver;
+	public  WebDriver driver=Hooks.driver;
 	@Given("I validate the background color of home element")
 	public void i_validate_the_background_color_of_home_element() {
-		this.driver=Hooks.driver;
+		
 	    String bgcolor=driver.findElement(By.linkText("Home")).getCssValue("background-color");
 	    System.out.println("background coor before mouse hover "+bgcolor);
 	}
@@ -28,5 +28,14 @@ public class ActionsEventSteps {
 		 String bgcolor=driver.findElement(By.linkText("Home")).getCssValue("background-color");
 		    System.out.println("background coor before mouse hover "+bgcolor);
 	}
+	
+	@Given("I perform a double click on link hotel")
+	public void i_perform_a_double_click_on_link_home() {
+		
+		Actions builders=new Actions(driver);
+	    Action mouseOverHome=builders.doubleClick(driver.findElement(By.linkText("Hotels"))).build();
+	    mouseOverHome.perform(); 
+	}
+
 
 }
