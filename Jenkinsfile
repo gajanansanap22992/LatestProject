@@ -1,28 +1,30 @@
 pipeline {
     agent any
 
+    tools {
+        
+        maven "MAVEN_HOME"
+    }
+
     stages {
         stage('Build') {
             steps {
-                echo 'Build application'
+                
+                git 'https://github.com/gajanansanap22992/LatestProject.git'
+
+                 bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
-        }
-        stage('Test Application') {
-            steps {
-                echo 'Test Application'
+
+            post {
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
+                always
+                {
+                     emailext body: 'Hi please find status of your build', subject: 'Maven project build status', to: 'gnsanap22992@gmail.com'
+                }
             }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploy application'
-            }
-        }
-    }
-    post
-    {
-        always
-        {
-            emailext body: 'Hi please find status of your build', subject: 'Maven project build status', to: 'gnsanap22992@gmail.com'
         }
     }
 }
